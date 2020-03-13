@@ -1,0 +1,87 @@
+$breakpoints: (
+	"xxs": 480,
+	"xs": 560,
+	"s": 640,
+	"m": 720,
+	"l": 960,
+	"xl": 1140,
+	"xxl": 1320
+);
+
+$gap: 20px;
+
+// base/default setup
+
+.columns {
+	display: flex;
+	&.is-vcentered {
+		align-items: center;
+	}
+	&.is-not-vcentered {
+		align-items: stretch;
+	}
+	&.is-gapless .column {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	&.is-centered {
+		justify-content: center;
+	}
+}
+
+.column {
+	display: block;
+	flex-basis: 0;
+	flex-grow: 1;
+	flex-shrink: 1;
+	padding-left: $gap / 2;
+	padding-right: $gap / 2;
+	&.is-narrow {
+		flex: none;
+		width: auto; // maybe don't need this?
+	}
+}
+
+@for $i from 1 through 12 {
+	.column.is-#{$i} {
+		width: percentage($i/12);
+		flex: none;
+	}
+}
+
+// responsive sizes
+@each $name, $size in $breakpoints {
+	@media (min-width: #{$size}px) {
+		.columns {
+			&.is-vcentered-#{$name} {
+				align-items: center;
+			}
+			&.is-not-vcentered-#{$name} {
+				align-items: stretch;
+			}
+			&.is-gapped-#{$name} .column {
+				padding-left: $gap / 2;
+				padding-right: $gap / 2;
+			}
+		}
+		.column {
+			&.is-narrow-#{$name} {
+				flex: none;
+				width: auto; // maybe don't need this?
+			}
+		}
+
+		@for $i from 1 through 12 {
+			.column {
+				&.is-#{$i}-#{$name} {
+					width: percentage($i/12);
+					flex: none;
+				}
+
+				&.is-offset-#{$i}-#{$name} {
+					margin-left: percentage($i / 12);
+				}
+			}
+		}
+	}
+}
