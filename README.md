@@ -1,2 +1,2 @@
 # Xulma
-A minimal, configurable flexbox column framework
+A minimal, configurable flexbox column framework.
