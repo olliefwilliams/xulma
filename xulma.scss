@@ -1,3 +1,4 @@
+// choose the name and size of each breakpoint
 $breakpoints: (
 	"xxs": 480,
 	"xs": 560,
@@ -5,12 +6,11 @@ $breakpoints: (
 	"m": 720,
 	"l": 960,
 	"xl": 1140,
-	"xxl": 1320
+	"xxl": 1320,
 );
 
+//default space between columns
 $gap: 20px;
-
-// base/default setup
 
 .columns {
 	display: flex;
