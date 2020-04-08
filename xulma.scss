@@ -11,6 +11,31 @@ $breakpoints: (
 
 //default space between columns
 $gap: 20px;
+// Maximum width of standard container
+$maxWidth: 1340px;
+
+.container {
+	position: relative;
+	margin: 0 auto;
+	width: calc(100% - (2 * $gap));
+	max-width: $maxWidth;
+}
+
+// choose the sizes at which the margin around .container increases, and how much it increases by
+$sizeChange: (
+	"s": 4 * $gap,
+	"l": 6 * $gap,
+);
+
+@each $name, $gapSize in $sizeChange {
+	$mediaSize: map-get($breakpoints, $name);
+
+	@media (min-width: #{$mediaSize}px) {
+		.container {
+			width: calc(100% - #{$gapSize});
+		}
+	}
+}
 
 .columns {
 	display: flex;
