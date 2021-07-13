@@ -19,12 +19,15 @@ $breakpoints: (
 }
 
 //default space between columns
-$gap: 20px;
+$gap: 40px;
+$small-gap: 20px;
 
 .columns {
 	display: flex;
 	margin-left: ($gap / 2) * -1;
 	margin-right: ($gap / 2) * -1;
+	flex-wrap: wrap;
+	overflow: hidden; // prevent horizontal scrollbar
 	&.is-vcentered {
 		align-items: center;
 	}
@@ -49,7 +52,18 @@ $gap: 20px;
 	padding-right: $gap / 2;
 	&.is-narrow {
 		flex: none;
-		width: auto; // maybe don't need this?
+	}
+	.is-offset-0 {
+		margin-left: 0;
+	}
+}
+
+.columns--small-gap {
+	margin-left: ($small-gap / 2) * -1;
+	margin-right: ($small-gap / 2) * -1;
+	.column {
+		padding-left: $small-gap / 2;
+		padding-right: $small-gap / 2;
 	}
 }
 
@@ -57,6 +71,9 @@ $gap: 20px;
 	.column.is-#{$i} {
 		width: percentage($i/12);
 		flex: none;
+	}
+	.column.is-offset-#{$i} {
+		margin-left: percentage($i / 12);
 	}
 }
 
@@ -78,7 +95,9 @@ $gap: 20px;
 		.column {
 			&.is-narrow-#{$name} {
 				flex: none;
-				width: auto; // maybe don't need this?
+			}
+			&.is-offset-0-#{$name} {
+				margin-left: 0;
 			}
 		}
 
