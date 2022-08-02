@@ -24,8 +24,8 @@ $small-gap: 20px;
 
 .columns {
 	display: flex;
-	margin-left: ($gap / 2) * -1;
-	margin-right: ($gap / 2) * -1;
+	margin-left: calc($gap / 2) * -1;
+	margin-right: calc($gap / 2) * -1;
 	flex-wrap: wrap;
 	overflow: hidden; // prevent horizontal scrollbar
 	&.is-vcentered {
@@ -52,8 +52,8 @@ $small-gap: 20px;
 	flex-basis: 0;
 	flex-grow: 1;
 	flex-shrink: 1;
-	padding-left: $gap / 2;
-	padding-right: $gap / 2;
+	padding-left: calc($gap / 2);
+	padding-right: calc($gap / 2);
 	&.is-narrow {
 		flex: none;
 	}
@@ -63,21 +63,21 @@ $small-gap: 20px;
 }
 
 .columns--small-gap {
-	margin-left: ($small-gap / 2) * -1;
-	margin-right: ($small-gap / 2) * -1;
+	margin-left: calc($small-gap / 2) * -1;
+	margin-right: calc($small-gap / 2) * -1;
 	.column {
-		padding-left: $small-gap / 2;
-		padding-right: $small-gap / 2;
+		padding-left: calc($small-gap / 2);
+		padding-right: calc($small-gap / 2);
 	}
 }
 
 @for $i from 1 through 12 {
 	.column.is-#{$i} {
-		width: percentage($i/12);
+		width: percentage(calc($i / 12));
 		flex: none;
 	}
 	.column.is-offset-#{$i} {
-		margin-left: percentage($i / 12);
+		margin-left: percentage(calc($i / 12));
 	}
 }
 
@@ -92,8 +92,8 @@ $small-gap: 20px;
 				align-items: stretch;
 			}
 			&.is-gapped-#{$name} .column {
-				padding-left: $gap / 2;
-				padding-right: $gap / 2;
+				padding-left: calc($gap / 2);
+				padding-right: calc($gap / 2);
 			}
 		}
 		.column {
@@ -108,12 +108,12 @@ $small-gap: 20px;
 		@for $i from 1 through 12 {
 			.column {
 				&.is-#{$i}-#{$name} {
-					width: percentage($i/12);
+					width: percentage(calc($i / 12));
 					flex: none;
 				}
 
 				&.is-offset-#{$i}-#{$name} {
-					margin-left: percentage($i / 12);
+					margin-left: percentage(calc($i / 12));
 				}
 			}
 		}
