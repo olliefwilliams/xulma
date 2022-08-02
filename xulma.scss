@@ -34,9 +34,13 @@ $small-gap: 20px;
 	&.is-not-vcentered {
 		align-items: stretch;
 	}
-	&.is-gapless .column {
-		padding-left: 0;
-		padding-right: 0;
+	&.is-gapless {
+		margin-left: auto;
+		margin-right: auto;
+		.column {
+			padding-left: 0;
+			padding-right: 0;
+		}
 	}
 	&.is-centered {
 		justify-content: center;
