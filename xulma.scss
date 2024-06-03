@@ -6,7 +6,7 @@ $breakpoints: (
 	"m": 720,
 	"l": 960,
 	"xl": 1140,
-	"xxl": 1320,
+	"xxl": 1320
 );
 
 // mixin to utilise media queries
@@ -18,32 +18,54 @@ $breakpoints: (
 	}
 }
 
-//default space between columns
-$gap: 40px;
-$small-gap: 20px;
+// arbitrary media query
+@mixin qa($width) {
+	@media (min-width: #{$width}px) {
+		@content;
+	}
+}
 
 .columns {
+	--xgap: 30px;
+	--ygap: var(--xgap);
 	display: flex;
-	margin-left: calc($gap / 2) * -1;
-	margin-right: calc($gap / 2) * -1;
+	margin-left: calc((var(--xgap) / 2) * -1);
+	margin-right: calc((var(--xgap) / 2) * -1);
+	margin-top: calc(var(--ygap) * -1);
 	flex-wrap: wrap;
-	overflow: hidden; // prevent horizontal scrollbar
-	&.is-vcentered {
+	overflow: hidden;
+	&.vcentered {
 		align-items: center;
 	}
-	&.is-not-vcentered {
+	&.not-vcentered {
 		align-items: stretch;
 	}
-	&.is-gapless {
+	&.gapless {
+		--xgap: 0px; // directly affects .column
 		margin-left: auto;
 		margin-right: auto;
-		.column {
-			padding-left: 0;
-			padding-right: 0;
+		margin-top: auto;
+	}
+	&.gap-big {
+		@include q(l) {
+			--xgap: 60px;
+			--ygap: 30px;
 		}
 	}
-	&.is-centered {
+	&.centered {
 		justify-content: center;
+	}
+	&.reversed {
+		flex-direction: row-reverse;
+	}
+	&.not-reversed {
+		flex-direction: row-reverse;
+	}
+	&.vgapless {
+		margin-top: 0;
+		.column {
+			margin-top: 0;
+		}
 	}
 }
 
@@ -52,22 +74,17 @@ $small-gap: 20px;
 	flex-basis: 0;
 	flex-grow: 1;
 	flex-shrink: 1;
-	padding-left: calc($gap / 2);
-	padding-right: calc($gap / 2);
+	padding-left: calc(var(--xgap) / 2);
+	padding-right: calc(var(--xgap) / 2);
+	margin-top: var(--ygap);
 	&.is-narrow {
 		flex: none;
 	}
-	.is-offset-0 {
+	&.is-offset-0 {
 		margin-left: 0;
 	}
-}
-
-.columns--small-gap {
-	margin-left: calc($small-gap / 2) * -1;
-	margin-right: calc($small-gap / 2) * -1;
-	.column {
-		padding-left: calc($small-gap / 2);
-		padding-right: calc($small-gap / 2);
+	&.first {
+		order: -1;
 	}
 }
 
@@ -85,23 +102,46 @@ $small-gap: 20px;
 @each $name, $size in $breakpoints {
 	@media (min-width: #{$size}px) {
 		.columns {
-			&.is-vcentered-#{$name} {
+			&.vcentered-#{$name} {
 				align-items: center;
 			}
-			&.is-not-vcentered-#{$name} {
+			&.not-vcentered-#{$name} {
 				align-items: stretch;
 			}
-			&.is-gapped-#{$name} .column {
-				padding-left: calc($gap / 2);
-				padding-right: calc($gap / 2);
+			&.not-centered-#{$name} {
+				justify-content: flex-start;
+			}
+			&.reversed-#{$name} {
+				flex-direction: row-reverse;
+			}
+			&.not-reversed-#{$name} {
+				flex-direction: row;
+			}
+			&.spread-#{$name} {
+				justify-content: space-between; // saves having to add offsets sometimes
+			}
+			&.vgap-reset-#{$name} {
+				--ygap: var(--xgap);
+			}
+			&.gapped-#{$name} .column {
+				padding-left: calc(var(--xgap) / 2);
+				padding-right: calc(var(--xgap) / 2);
 			}
 		}
 		.column {
 			&.is-narrow-#{$name} {
 				flex: none;
+				width: auto;
+				flex-grow: 1;
 			}
 			&.is-offset-0-#{$name} {
 				margin-left: 0;
+			}
+			&.first-#{$name} {
+				order: -1;
+			}
+			&.not-first-#{$name} {
+				order: initial;
 			}
 		}
 
